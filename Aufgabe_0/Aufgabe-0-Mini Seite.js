@@ -9,3 +9,4 @@ function init() {
     }
 }
 window.addEventListener("load", init);
+//# sourceMappingURL=Aufgabe-0-Mini Seite.js.map

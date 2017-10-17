@@ -103,3 +103,4 @@ function SkiPiste() {
     crc2.lineTo(710, 470);
     crc2.stroke();
 }
+//# sourceMappingURL=Aufgabe-01-Skipiste.js.map
