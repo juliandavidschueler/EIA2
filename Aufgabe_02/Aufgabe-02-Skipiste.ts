@@ -128,64 +128,47 @@ function SkiPisteMitFunktionen() : void {
     
     
     //Aufgabe 2
-    
-//    function Baum (_x: number, _y: number, _color: string) : void {
-//        
-//    crc2.beginPath();
-//    crc2.moveTo(_x, _y);
-//    crc2.lineTo(_x+40, _y+100);
-//    crc2.lineTo(_x-40, _y+100);
-//    crc2.closePath();
-//    crc2.stroke();
-//    crc2.fillStyle = _color;
-//    crc2.fill();
-//        
-//        }
-//    
-//     for (let i: number = 0; i < 3; i++) {
-//        
-//        Baum(100 + i * 60, 500, "#276D28");
-//
-//     }
-    
-    function BaumZufaellig (_x: number, _y: number, _color: string) : void {
+     
+    for (let i: number = 0; i < 4; i++) {
         
-        crc2.beginPath();
-        crc2.moveTo(_x,_y);
-        crc2.lineTo(_x+40, _y+160);
-        crc2.lineTo(_x-40, _y+160);
-        crc2.closePath();
-        crc2.stroke();
-        crc2.fillStyle = _color;
-        crc2.fill();
-        
-    }
-    
-    
-    for (let i: number = 0; i < 4; i++){
-        let x: number =  0 + Math.random()*300;
+        let x: number = 200 + Math.random()*300;
         let y: number = 400 + Math.random()*50;
         
         BaumZufaellig(x, y, "#276D28")
         
         }
     
-    function Schneeflocken(_x:number, _y: number, _radius: number, _anfang: number, _ende: number, _color: string): void {
- 
-
-    crc2.beginPath();
-    crc2.arc(_x, _y, _radius, _anfang, _ende);
-    crc2.fillStyle = _color;
-    crc2.fill();
-    
-  }
- 
     for (let i: number = 0; i < 170; i++) {
     
         let x: number = 0 + Math.random() * 800;
         let y: number = 0 + Math.random() * 600;
         
         Schneeflocken(x, y, 1.5, 0, 1.5 * Math.PI, "#ffffff");
+        
         }
     
+    
+    function BaumZufaellig (x: number, y: number, color: string) : void {
+        
+        crc2.beginPath();
+        crc2.moveTo(x,y);
+        crc2.lineTo(x+40, y+160);
+        crc2.lineTo(x-40, y+160);
+        crc2.closePath();
+        crc2.stroke();
+        crc2.fillStyle = color;
+        crc2.fill();
+        
+}
+    
+   
+    function Schneeflocken (x:number, y: number, rad: number, a: number, b:number, color: string): void {
+
+        crc2.beginPath();
+        crc2.arc(x, y, rad, a, b);
+        crc2.fillStyle = color;
+        crc2.fill();
+    
+}
+        
 }   
