@@ -197,10 +197,9 @@ var Aufgabe03;
             crc2.closePath();
             crc2.stroke();
             crc2.beginPath();
-            crc2.moveTo(x + 20, y - 17);
-            crc2.lineTo(x, y - 35);
-            crc2.closePath();
-            crc2.stroke();
+            crc2.arc(x + 20, y - 20, 7, 0, 2 * Math.PI);
+            crc2.fillStyle = "#000000";
+            crc2.fill();
         }
         function Schnee(x, y, rad, a, b, color) {
             crc2.beginPath();
