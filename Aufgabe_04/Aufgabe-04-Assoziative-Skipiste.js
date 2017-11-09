@@ -197,4 +197,4 @@ var Aufgabe03;
         }
     }
 })(Aufgabe03 || (Aufgabe03 = {}));
-//# sourceMappingURL=Aufgabe-03-Schneegestoeber.js.map
+//# sourceMappingURL=Aufgabe-04-Assoziative-Skipiste.js.map
