@@ -1,17 +1,18 @@
-namespace Aufgabe03 {
+namespace Aufgabe04 {
 
     window.addEventListener("load", SkiPisteMitFunktionen);
 
     let crc2: CanvasRenderingContext2D;
 
-    let arrayWolkeX: number[] = [];
-    let arrayWolkeY: number[] = [];
+//    let arrayWolkeX: number[] = [];
+//    let arrayWolkeY: number[] = [];
 
+    let wolke: number[][] = [];
+    
     let arraySkifahrerX: number[] = [0, -50];
     let arraySkifahrerY: number[] = [150, 200];
 
-    let arraySchneeX: number[] = [];
-    let arraySchneeY: number[] = [];
+    let schnee: number[][] = [];
 
     let Hintergrund: ImageData;
 
@@ -97,18 +98,7 @@ namespace Aufgabe03 {
         crc2.lineTo(710, 470);
         crc2.stroke();
 
-
-
         //Aufgabe 2
-
-        for (let i: number = 0; i < 4; i++) {
-
-            let x: number = 200 + Math.random() * 300;
-            let y: number = 400 + Math.random() * 50;
-
-            BaumZufaellig(x, y, "#276D28")
-
-        }
 
         function BaumZufaellig(x: number, y: number, color: string): void {
 
@@ -123,113 +113,159 @@ namespace Aufgabe03 {
 
         }
 
+        for (let i: number = 0; i < 4; i++) {
 
-        function Schneeflocken(x: number, y: number, rad: number, a: number, b: number, color: string): void {
+            let x: number = 200 + Math.random() * 300;
+            let y: number = 400 + Math.random() * 50;
 
-            crc2.beginPath();
-            crc2.arc(x, y, rad, a, b);
-            crc2.fillStyle = color;
-            crc2.fill();
+            BaumZufaellig(x, y, "#276D28")
 
         }
 
+        //Aufgabe 3   
 
-
-        //Aufgabe 3    
         Hintergrund = crc2.getImageData(0, 0, canvas.width, canvas.height);
 
         animate();
 
-        for (let i: number = 0; i < 5; i++) {
-            arrayWolkeX[i] = 800 * Math.random();
-            arrayWolkeY[i] = 100 * Math.random();
-        }
-
-
         for (let i: number = 0; i < 170; i++) {
-            arraySchneeX[i] = 800 * Math.random();
-            arraySchneeY[i] = 600 * Math.random();
+            schnee[i] = [800, 600];
         }
 
-
-        function Wolke(x: number, y: number): void {
-
-            crc2.beginPath();
-            crc2.arc(x, y, 20, 0, 2 * Math.PI);
-            crc2.fillStyle = "#FAFAFA";
-            crc2.fill();
-            crc2.beginPath();
-            crc2.arc(x + 15, y + 8, 20, 0, 2 * Math.PI);
-            crc2.fillStyle = "#FAFAFA";
-            crc2.fill();
-            crc2.beginPath();
-            crc2.arc(x, y + 5, 20, 0, 2 * Math.PI);
-            crc2.fillStyle = "#FAFAFA";
-            crc2.fill();
-            crc2.beginPath();
-            crc2.arc(x - 20, y + 8, 20, 0, 2 * Math.PI);
-            crc2.fillStyle = "#FAFAFA";
-            crc2.fill();
-
-            crc2.beginPath();
-            crc2.arc(x, y, 20, 0, 2 * Math.PI);
-            crc2.fillStyle = "#FAFAFA";
-            crc2.fill();
-            crc2.beginPath();
-            crc2.arc(x + 70, y + 8, 20, 0, 2 * Math.PI);
-            crc2.fillStyle = "#FAFAFA";
-            crc2.fill();
-            crc2.beginPath();
-            crc2.arc(x + 50, y + 15, 20, 0, 2 * Math.PI);
-            crc2.fillStyle = "#FAFAFA";
-            crc2.fill();
-            crc2.beginPath();
-            crc2.arc(x + 30, y + 8, 20, 0, 2 * Math.PI);
-            crc2.fillStyle = "#FAFAFA";
-            crc2.fill();
+        for (let i: number = 0; i < 4; i++) {
+            wolke[i] = [0, 50]; 
         }
-        
+
+//        function Schnee(x: number, y: number, rad: number, a: number, b: number, color: string): void {
+//
+//            crc2.beginPath();
+//            crc2.arc(x, y, rad, a, b);
+//            crc2.fillStyle = color;
+//            crc2.fill();
+//        }
+
+//        function Wolke(x: number, y: number): void {
+//
+//            crc2.beginPath();
+//            crc2.arc(x, y, 20, 0, 2 * Math.PI);
+//            crc2.fillStyle = "#FAFAFA";
+//            crc2.fill();
+//            crc2.beginPath();
+//            crc2.arc(x + 15, y + 8, 20, 0, 2 * Math.PI);
+//            crc2.fillStyle = "#FAFAFA";
+//            crc2.fill();
+//            crc2.beginPath();
+//            crc2.arc(x, y + 5, 20, 0, 2 * Math.PI);
+//            crc2.fillStyle = "#FAFAFA";
+//            crc2.fill();
+//            crc2.beginPath();
+//            crc2.arc(x - 20, y + 8, 20, 0, 2 * Math.PI);
+//            crc2.fillStyle = "#FAFAFA";
+//            crc2.fill();
+//
+//            crc2.beginPath();
+//            crc2.arc(x, y, 20, 0, 2 * Math.PI);
+//            crc2.fillStyle = "#FAFAFA";
+//            crc2.fill();
+//            crc2.beginPath();
+//            crc2.arc(x + 70, y + 8, 20, 0, 2 * Math.PI);
+//            crc2.fillStyle = "#FAFAFA";
+//            crc2.fill();
+//            crc2.beginPath();
+//            crc2.arc(x + 50, y + 15, 20, 0, 2 * Math.PI);
+//            crc2.fillStyle = "#FAFAFA";
+//            crc2.fill();
+//            crc2.beginPath();
+//            crc2.arc(x + 30, y + 8, 20, 0, 2 * Math.PI);
+//            crc2.fillStyle = "#FAFAFA";
+//            crc2.fill();
+//        }
+
         function Skifahrer(x: number, y: number): void {
 
             crc2.beginPath();
+            crc2.fillStyle = "#81F7F3";
+            crc2.fillRect(x, y - 5, 7, 25);
+
+            crc2.beginPath();
             crc2.fillStyle = "#000000";
-            crc2.fillRect(x, y-5, 7, 25);
+            crc2.fillRect(x - 6, y + 20, 30, 3);
             
             crc2.beginPath();
-            crc2.fillRect(x-6, y+20, 30, 3);
-            
-            crc2.beginPath();
-            crc2.arc(x+5, y-10, 7, 0, 2 * Math.PI);
-            crc2.fill();
-            }
-
-        function Schnee(x: number, y: number, rad: number, a: number, b: number, color: string): void {
+            crc2.fillStyle = "#FA5882";
+            crc2.fillRect(x, y - 5, 7, 10);
 
             crc2.beginPath();
-            crc2.arc(x, y, rad, a, b);
-            crc2.fillStyle = color;
+            crc2.fillStyle = "#000000";
+            crc2.arc(x + 5, y - 10, 7, 0, 2 * Math.PI);
             crc2.fill();
-
         }
-
 
         function animate(): void {
 
             crc2.putImageData(Hintergrund, 0, 0);
 
-            
-            for (let i: number = 0; i < arrayWolkeX.length; i++) {
-
-                arrayWolkeX[i] += 1;
-                Wolke(arrayWolkeX[i], arrayWolkeY[i]);
-
-                if (arrayWolkeX[i] > 800) {
-                    arrayWolkeX[i] = 0;
-                }
+            //Wolke
+            for (let i: number = 0; i < wolke.length; i++) {
+                
+                wolke[i][0] += Math.random() +5 ;
+                wolke[i][1] += Math.random() -0.5 ;
+                
+                crc2.beginPath();
+                crc2.arc(wolke[i][0], wolke[i][1], 20, 0, 2 * Math.PI);
+                crc2.fillStyle = "#FAFAFA";
+                crc2.fill();
+                crc2.arc(wolke[i][0] + 15, wolke[i][1] + 8, 20, 0, 2 * Math.PI);
+                crc2.fillStyle = "#FAFAFA";
+                crc2.fill();
+                crc2.arc(wolke[i][0], wolke[i][1] + 5, 20, 0, 2 * Math.PI);
+                crc2.fillStyle = "#FAFAFA";
+                crc2.fill();
+                crc2.arc(wolke[i][0] - 20, wolke[i][1] + 8, 20, 0, 2 * Math.PI);
+                crc2.fillStyle = "#FAFAFA";
+                crc2.fill();
+                crc2.arc(wolke[i][0], wolke[i][1], 20, 0, 2 * Math.PI);
+                crc2.fillStyle = "#FAFAFA";
+                crc2.fill();
+                crc2.arc(wolke[i][0] + 70, wolke[i][1] + 8, 20, 0, 2 * Math.PI);
+                crc2.fillStyle = "#FAFAFA";
+                crc2.fill();
+                crc2.arc(wolke[i][0] + 50, wolke[i][1] + 15, 20, 0, 2 * Math.PI);
+                crc2.fillStyle = "#FAFAFA";
+                crc2.fill();
+                crc2.arc(wolke[i][0] + 30, wolke[i][1] + 8, 20, 0, 2 * Math.PI);
+                crc2.fillStyle = "#FAFAFA";
+                crc2.fill();
+                
+//                arrayWolkeX[i] += 1;
+//                Wolke(arrayWolkeX[i], arrayWolkeY[i]);
+//
+//                if (arrayWolkeX[i] > 800) {
+//                    arrayWolkeX[i] = 0;
+//                }
             }
 
+            //Schnee
+            for (let i: number = 0; i < schnee.length; i++) {
 
-            //Skifahrer    
+                schnee[i][1] += 1;
+                schnee[i][0] = 800 * Math.random() ;
+                schnee[i][1] = 600 * Math.random() ;
+                
+                crc2.beginPath();
+                crc2.arc(schnee[i][0], schnee[i][1], 1.5, 0, 2 * Math.PI);
+                crc2.fillStyle = "#FAFAFA";
+                crc2.fill();
+                
+//                arraySchneeY[i] += 1;
+//                Schnee(arraySchneeX[i], arraySchneeY[i], 1.5, 0, 1.5 * Math.PI, "#ffffff");
+//
+//                if (arraySchneeY[i] > 600) {
+//                    arraySchneeY[i] = 0;
+//                }
+            }
+
+            //Skifahrer1    
             arraySkifahrerX[0] += 2;
             arraySkifahrerY[0] += 1;
 
@@ -240,6 +276,7 @@ namespace Aufgabe03 {
                 arraySkifahrerY[0] = 150;
             }
 
+            //Skifahrer2
             arraySkifahrerX[1] += 4;
             arraySkifahrerY[1] += 2;
 
@@ -250,18 +287,6 @@ namespace Aufgabe03 {
                 arraySkifahrerY[1] = 200;
             }
 
-
-            //Schnee
-            for (let i: number = 0; i < arraySchneeY.length; i++) {
-
-                arraySchneeY[i] += 1;
-                Schnee(arraySchneeX[i], arraySchneeY[i], 1.5, 0, 1.5 * Math.PI, "#ffffff");
-
-                if (arraySchneeY[i] > 600) {
-                    arraySchneeY[i] = 0;
-                }
-            }
-
             window.setTimeout(animate, 10);
         }
 
@@ -270,4 +295,4 @@ namespace Aufgabe03 {
 }
 
 
- 
+
