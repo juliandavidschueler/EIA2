@@ -4,8 +4,8 @@ var Aufgabe03;
     let crc2;
     let arrayWolkeX = [];
     let arrayWolkeY = [];
-    let arraySkifahrerX = [0];
-    let arraySkifahrerY = [150];
+    let arraySkifahrerX = [0, -50];
+    let arraySkifahrerY = [150, 200];
     let arraySchneeX = [];
     let arraySchneeY = [];
     let Hintergrund;
@@ -65,40 +65,6 @@ var Aufgabe03;
         crc2.stroke();
         crc2.fillStyle = "#D3D4D4";
         crc2.fill();
-        /*Wolke1*/
-        //        crc2.beginPath();
-        //        crc2.arc(500, 70, 20, 0, 2 * Math.PI);
-        //        crc2.fillStyle = "#FAFAFA";
-        //        crc2.fill();
-        //        crc2.beginPath();
-        //        crc2.arc(515, 78, 20, 0, 2 * Math.PI);
-        //        crc2.fillStyle = "#FAFAFA";
-        //        crc2.fill();
-        //        crc2.beginPath();
-        //        crc2.arc(500, 85, 20, 0, 2 * Math.PI);
-        //        crc2.fillStyle = "#FAFAFA";
-        //        crc2.fill();
-        //        crc2.beginPath();
-        crc2.arc(480, 78, 20, 0, 2 * Math.PI);
-        //        crc2.fillStyle = "#FAFAFA";
-        //        crc2.fill();
-        /*Wolke2*/
-        //        crc2.beginPath();
-        //        crc2.arc(550, 100, 20, 0, 2 * Math.PI);
-        //        crc2.fillStyle = "#FAFAFA";
-        //        crc2.fill();
-        //        crc2.beginPath();
-        //        crc2.arc(570, 108, 20, 0, 2 * Math.PI);
-        //        crc2.fillStyle = "#FAFAFA";
-        //        crc2.fill();
-        //        crc2.beginPath();
-        //        crc2.arc(550, 115, 20, 0, 2 * Math.PI);
-        //        crc2.fillStyle = "#FAFAFA";
-        //        crc2.fill();
-        //        crc2.beginPath();
-        //        crc2.arc(530, 108, 20, 0, 2 * Math.PI);
-        //        crc2.fillStyle = "#FAFAFA";
-        //        crc2.fill();
         /*SkiLift*/
         crc2.beginPath();
         crc2.moveTo(0, 75);
@@ -118,12 +84,6 @@ var Aufgabe03;
             let y = 400 + Math.random() * 50;
             BaumZufaellig(x, y, "#276D28");
         }
-        //        for (let i: number = 0; i < 170; i++) {
-        //
-        //            arraySchneeX[i] = Math.random() * 800 - 0;
-        //            arraySchneeY[i] = Math.random() * 600 - 0;
-        //
-        //        }
         function BaumZufaellig(x, y, color) {
             crc2.beginPath();
             crc2.moveTo(x, y);
@@ -209,7 +169,6 @@ var Aufgabe03;
         }
         function animate() {
             crc2.putImageData(Hintergrund, 0, 0);
-            //Wolke
             for (let i = 0; i < arrayWolkeX.length; i++) {
                 arrayWolkeX[i] += 1;
                 Wolke(arrayWolkeX[i], arrayWolkeY[i]);
@@ -217,15 +176,20 @@ var Aufgabe03;
                     arrayWolkeX[i] = 0;
                 }
             }
-            //Skifahrer
-            for (let i = 0; i < arraySkifahrerX.length; i++) {
-                arraySkifahrerX[i] += 2;
-                arraySkifahrerY[i] += 1;
-                Skifahrer(arraySkifahrerX[i], arraySkifahrerY[i]);
-                if (arraySkifahrerX[i] > 800) {
-                    arraySkifahrerX[i] = 0;
-                    arraySkifahrerY[i] = 150;
-                }
+            //Skifahrer    
+            arraySkifahrerX[0] += 2;
+            arraySkifahrerY[0] += 1;
+            Skifahrer(arraySkifahrerX[0], arraySkifahrerY[0]);
+            if (arraySkifahrerX[0] > 800) {
+                arraySkifahrerX[0] = 0;
+                arraySkifahrerY[0] = 150;
+            }
+            arraySkifahrerX[1] += 4;
+            arraySkifahrerY[1] += 2;
+            Skifahrer(arraySkifahrerX[1], arraySkifahrerY[1]);
+            if (arraySkifahrerX[1] > 800) {
+                arraySkifahrerX[1] = -50;
+                arraySkifahrerY[1] = 200;
             }
             //Schnee
             for (let i = 0; i < arraySchneeY.length; i++) {
