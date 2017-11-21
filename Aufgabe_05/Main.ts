@@ -117,6 +117,15 @@ namespace L05_Class {
         crc2.moveTo(690, 470);
         crc2.lineTo(710, 470);
         crc2.stroke();
+        
+        for (let i: number = 0; i < 4; i++) {
+
+            let x: number = 200 + Math.random() * 300;
+            let y: number = 400 + Math.random() * 50;
+
+            BaumZufaellig(x, y, "#276D28")
+
+        }
 
         Hintergrund = crc2.getImageData(0, 0, canvas.width, canvas.height);
 
@@ -133,15 +142,6 @@ namespace L05_Class {
             crc2.stroke();
             crc2.fillStyle = color;
             crc2.fill();
-
-        }
-
-        for (let i: number = 0; i < 4; i++) {
-
-            let x: number = 200 + Math.random() * 300;
-            let y: number = 400 + Math.random() * 50;
-
-            BaumZufaellig(x, y, "#276D28")
 
         }
 
