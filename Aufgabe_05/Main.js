@@ -94,23 +94,23 @@ var L05_Class;
         L05_Class.crc2.moveTo(690, 470);
         L05_Class.crc2.lineTo(710, 470);
         L05_Class.crc2.stroke();
-        function BaumZufaellig(x, y, color) {
-            L05_Class.crc2.beginPath();
-            L05_Class.crc2.moveTo(x, y);
-            L05_Class.crc2.lineTo(x + 40, y + 160);
-            L05_Class.crc2.lineTo(x - 40, y + 160);
-            L05_Class.crc2.closePath();
-            L05_Class.crc2.stroke();
-            L05_Class.crc2.fillStyle = color;
-            L05_Class.crc2.fill();
-        }
-        for (let i = 0; i < 4; i++) {
-            let x = 200 + Math.random() * 300;
-            let y = 400 + Math.random() * 50;
-            BaumZufaellig(x, y, "#276D28");
-        }
         Hintergrund = L05_Class.crc2.getImageData(0, 0, canvas.width, canvas.height);
         animate();
+    }
+    function BaumZufaellig(x, y, color) {
+        L05_Class.crc2.beginPath();
+        L05_Class.crc2.moveTo(x, y);
+        L05_Class.crc2.lineTo(x + 40, y + 160);
+        L05_Class.crc2.lineTo(x - 40, y + 160);
+        L05_Class.crc2.closePath();
+        L05_Class.crc2.stroke();
+        L05_Class.crc2.fillStyle = color;
+        L05_Class.crc2.fill();
+    }
+    for (let i = 0; i < 4; i++) {
+        let x = 200 + Math.random() * 300;
+        let y = 400 + Math.random() * 50;
+        BaumZufaellig(x, y, "#276D28");
     }
     function animate() {
         L05_Class.crc2.putImageData(Hintergrund, 0, 0);

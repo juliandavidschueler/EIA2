@@ -118,7 +118,12 @@ namespace L05_Class {
         crc2.lineTo(710, 470);
         crc2.stroke();
 
-        function BaumZufaellig(x: number, y: number, color: string): void {
+        Hintergrund = crc2.getImageData(0, 0, canvas.width, canvas.height);
+
+        animate();
+    }
+    
+    function BaumZufaellig(x: number, y: number, color: string): void {
 
             crc2.beginPath();
             crc2.moveTo(x, y);
@@ -139,11 +144,6 @@ namespace L05_Class {
             BaumZufaellig(x, y, "#276D28")
 
         }
-
-        Hintergrund = crc2.getImageData(0, 0, canvas.width, canvas.height);
-
-        animate();
-    }
 
     function animate(): void {
 
