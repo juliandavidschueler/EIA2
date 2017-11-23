@@ -109,6 +109,8 @@ namespace Aufgabe03 {
             BaumZufaellig(x, y, "#276D28")
 
         }
+        
+        }
 
         function BaumZufaellig(x: number, y: number, color: string): void {
 
@@ -223,6 +225,8 @@ namespace Aufgabe03 {
             crc2.beginPath();
             crc2.arc(x+5, y-10, 7, 0, 2 * Math.PI);
             crc2.fill();
+            
+            }
 
         function Schnee(x: number, y: number, rad: number, a: number, b: number, color: string): void {
 
@@ -288,4 +292,3 @@ namespace Aufgabe03 {
 
     }
 
-}
