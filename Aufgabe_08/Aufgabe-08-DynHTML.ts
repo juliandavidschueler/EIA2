@@ -32,8 +32,3 @@ function drawRect(_x: number, _y: number, _color: string, _width: number, _heigh
     div.style.backgroundColor = _color;
     document.body.appendChild(div); 
 }
-
-
-
-
-
