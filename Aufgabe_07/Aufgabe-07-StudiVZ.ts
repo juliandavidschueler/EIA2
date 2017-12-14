@@ -1,3 +1,12 @@
+/*
+Aufgabe: (7 StudiVZ)
+Name: (Julian Schüler)
+Matrikel: (256033)
+Datum: (02.12.2017)
+    
+Hiermit versichere ich, dass ich diesen Code selbst geschrieben habe. Er wurde nicht kopiert und auch nicht diktiert.
+*/
+
 namespace StudiVZ {
 
     interface StudentData {
@@ -32,9 +41,9 @@ namespace StudiVZ {
         }
     }
 
-    function saveData(_input: string): string {
+    function saveData(input: string): string {
 
-        let stringToSplit: string[] = _input.split(",", 6);
+        let stringToSplit: string[] = input.split(",", 6);
 
         if (Number.isNaN(parseInt(stringToSplit[0]))) {
             return "'Matrikelnummer' muss eine Zahl sein";

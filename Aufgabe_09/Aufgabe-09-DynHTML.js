@@ -29,4 +29,4 @@ function drawRect(x, y, color, width, height) {
     div.style.background = color;
     document.body.appendChild(div);
 }
-//# sourceMappingURL=Aufgabe-08-DynHTML.js.map
+//# sourceMappingURL=Aufgabe-09-DynHTML.js.map
