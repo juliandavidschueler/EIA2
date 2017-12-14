@@ -7,34 +7,36 @@ Datum: (07.12.2017)
 Hiermit versichere ich, dass ich diesen Code selbst geschrieben habe. Er wurde nicht kopiert und auch nicht diktiert.
 */
 
-window.addEventListener("load", DynHTML);
+namespace Aufgabe09 {
 
-function DynHTML(): void {
+    namespace L08_Events {
+        window.addEventListener("load", init);
+        document.addEventListener("keydown", handleKeydown);
+        //document.onkeydown = handleKeydown;
+        document.addEventListener("click", handleClick);
 
-    var anzahl: string = prompt("Anzahl");
-    var anzahlNumb: number = parseInt(anzahl);
+        function handleClick(_event: MouseEvent): void {
+            console.log("Target: " + _event.target);
+            console.log("currentTarget: " + _event.currentTarget);
+        }
 
-    if (anzahlNumb >= 1 && anzahlNumb <= 100) {
-        for (var i: number = 0; i < anzahlNumb; i++) {
-            drawRect(Math.random() * 800, Math.random() * 600, "hsl(" + Math.random() * 360 + ", 100%, 50%)", 50, 50);
+        function handleKeydown(_event: KeyboardEvent): void {
+            console.log(_event);
+        }
+
+        function init(_event: Event): void {
+            console.log("Hallo");
+            console.log(_event);
+
+            let h1: HTMLHeadingElement = document.getElementsByTagName("h1")[0];
+            h1.addEventListener("mouseover", handleMouseOverH1);
+            h1.addEventListener("click", handleClick);
+        }
+
+        function handleMouseOverH1(_event: MouseEvent): void {
+            console.log(_event.target);
+            let h1: HTMLHeadingElement = <HTMLHeadingElement>_event.target;
+            h1.style.color = "#ff0000";
         }
     }
-    else {
-        window.alert("Die Zahl muss zwischen 1 und 100 liegen");
-        DynHTML();
-
-    }
-}
-
-function drawRect(x: number, y: number, color: string, width: number, height: number): void {
-
-    let div: HTMLDivElement = document.createElement("div");
-    
-    div.style.width = width.toString();
-    div.style.height = height.toString();
-    div.style.left = x.toString();
-    div.style.top = y.toString();
-    div.style.background = color;
-    
-    document.body.appendChild(div);
 }
