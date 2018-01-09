@@ -8,7 +8,7 @@ Hiermit versichere ich, dass ich diesen Code selbst geschrieben habe. Er wurde n
 */
 
 namespace Aufgabe10 {
-    window.addEventListener("load", init);
+    window.addEventListener("load", Konfigurator);
     
     //AuswahlBoxen
     let baumtyp: HTMLSelectElement = document.createElement("select");
@@ -29,7 +29,7 @@ namespace Aufgabe10 {
     var gesamtpreis: number = 0;
 
 
-    function init(): void {
+    function Konfigurator(): void {
         
         //Warenkorb Definieren und Anhängen
         let h2: HTMLHeadingElement = document.createElement("h2");
@@ -45,7 +45,6 @@ namespace Aufgabe10 {
         korb.style.top = "10px";
         korb.style.width = "500px";
         korb.style.height = "500px";
-        korb.style.backgroundColor = "#c8ce86";
         korb.style.paddingTop = "40px";
         korb.style.paddingLeft = "10px";
         document.getElementById("korbid").appendChild(korb);
@@ -61,8 +60,7 @@ namespace Aufgabe10 {
             baumtyp.appendChild(option);
         }
 
-
-
+        
         //Halterungen Selektor          
         halterungtyp.addEventListener("change", AuswahlAuslesen);
         document.getElementById("halterung").appendChild(halterungtyp);
@@ -151,7 +149,7 @@ namespace Aufgabe10 {
         }
 
 
-//Persönliche Daten Eingeben
+        //Lieferadresse Eingeben
         persName.type = "text";
         persName.placeholder = "Name";
         persName.required = true;
