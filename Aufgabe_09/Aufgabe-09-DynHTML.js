@@ -16,12 +16,12 @@ var Aufgabe09;
     function Erpresserbrief() {
         for (let i = 0; i < letters.length; i++) {
             let l = document.createElement("div");
-            l.style.width = "35px";
-            l.style.height = "35px";
-            l.style.margin = "5px";
-            l.style.backgroundColor = "#b7b7b7";
+            l.style.width = "25px";
+            l.style.height = "20px";
+            l.style.margin = "2px";
+            l.style.backgroundColor = "black";
             l.style.color = "white";
-            l.style.fontSize = "25px";
+            l.style.fontSize = "20px";
             l.innerText = letters[i];
             l.id = letters[i];
             l.className = "letters";
@@ -29,10 +29,10 @@ var Aufgabe09;
             document.body.appendChild(l);
         }
         let box = document.createElement("div");
-        box.style.width = "1165px";
-        box.style.height = "500px";
+        box.style.width = "750px";
+        box.style.height = "300px";
         box.style.marginTop = "20px";
-        box.style.backgroundColor = "#b7b7b7";
+        box.style.backgroundColor = "black";
         box.addEventListener("click", handleBoxClick);
         document.body.appendChild(box);
     }
@@ -42,10 +42,10 @@ var Aufgabe09;
         l.style.color = "#ffffff";
         l.style.backgroundColor = "#000000";
         saveLetter = l.id;
-        let letterList = document.getElementsByClassName("letters"); //Jedes Div der Klasse letters in Variable speichern
+        let letterList = document.getElementsByClassName("letters");
         for (let i = 0; i < letterList.length; i++) {
             if (saveLetter != letterList[i].id) {
-                letterList[i].style.backgroundColor = "#b7b7b7";
+                letterList[i].style.backgroundColor = "grey";
             }
         }
     }
@@ -63,7 +63,7 @@ var Aufgabe09;
         text = document.createElement("div");
         text.innerText = saveLetter;
         text.style.position = "absolute";
-        text.style.color = "#000000";
+        text.style.color = "white";
         text.style.width = "35px";
         text.style.height = "35px";
         text.style.fontSize = "30px";
