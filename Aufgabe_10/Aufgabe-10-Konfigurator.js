@@ -9,29 +9,29 @@ Hiermit versichere ich, dass ich diesen Code selbst geschrieben habe. Er wurde n
 var Aufgabe10;
 (function (Aufgabe10) {
     window.addEventListener("load", Konfigurator);
-    //AuswahlBoxen
-    let baumtyp = document.createElement("select");
-    let halterungtyp = document.createElement("select");
-    let lieferopttyp = document.createElement("select");
-    var korb = document.createElement("div");
-    //Persönlich
-    let persName = document.createElement("input");
-    let persVorname = document.createElement("input");
-    let persMail = document.createElement("input");
-    let persAdresse = document.createElement("input");
-    let persPlz = document.createElement("input");
-    //Button
+    let baumarten = document.createElement("select");
+    let halterung = document.createElement("select");
+    //Kerzentypen weiter unten
+    //Schmuckartikel weiter unten
+    let lieferung = document.createElement("select");
+    //Lieferadresse
+    let Name = document.createElement("input");
+    let Vorname = document.createElement("input");
+    let Mail = document.createElement("input");
+    let Adresse = document.createElement("input");
+    let Plz = document.createElement("input");
+    //button
     let prufen = document.createElement("div");
-    var gesamtpreis = 0;
+    //warenkorb
+    let korb = document.createElement("div");
     function Konfigurator() {
-        //Warenkorb Definieren und Anhängen
         let h2 = document.createElement("h2");
         h2.innerText = "Warenkorb";
         h2.style.position = "absolute";
         h2.style.right = "390px";
         h2.style.top = "0px";
         h2.style.zIndex = "99";
-        document.getElementById("korbid").appendChild(h2);
+        document.getElementById("korbbild").appendChild(h2);
         korb.style.display = "inline-block";
         korb.style.position = "absolute";
         korb.style.right = "10px";
@@ -40,39 +40,36 @@ var Aufgabe10;
         korb.style.height = "500px";
         korb.style.paddingTop = "40px";
         korb.style.paddingLeft = "10px";
-        document.getElementById("korbid").appendChild(korb);
-        //Baum Definieren und Anhängen        
-        baumtyp.addEventListener("change", AuswahlAuslesen);
-        document.getElementById("baumtyp").appendChild(baumtyp);
+        korb.style.backgroundColor = "red";
+        document.getElementById("korbbild").appendChild(korb);
+        baumarten.addEventListener("change", AuswahlAuslesen);
+        document.getElementById("baumtyp").appendChild(baumarten);
         for (let i = 0; i < Aufgabe10.baumdaten.length; i++) {
             let option = document.createElement("option");
             option.innerText = Aufgabe10.baumdaten[i].name;
-            baumtyp.id = Aufgabe10.baumdaten[i].element; //Typ bzw ID Des Elements zuweisen, siehe Daten.ts
-            baumtyp.appendChild(option);
+            baumarten.id = Aufgabe10.baumdaten[i].element; //ID für späteren Nutzen im Warenkorb
+            baumarten.appendChild(option);
         }
-        //Halterungen Selektor          
-        halterungtyp.addEventListener("change", AuswahlAuslesen);
-        document.getElementById("halterung").appendChild(halterungtyp);
+        halterung.addEventListener("change", AuswahlAuslesen);
+        document.getElementById("halterung").appendChild(halterung);
         for (let i = 0; i < Aufgabe10.halterungdaten.length; i++) {
             let option = document.createElement("option");
             option.innerText = Aufgabe10.halterungdaten[i].name;
-            halterungtyp.id = Aufgabe10.halterungdaten[i].element; //Typ bzw ID Des Elements zuweisen, siehe Daten.ts
-            halterungtyp.appendChild(option);
+            halterung.id = Aufgabe10.halterungdaten[i].element; //ID für späteren Nutzen im Warenkorb
+            halterung.appendChild(option);
         }
-        //Kugel Selektor       
+        //Schmuckartikel werden anders aufgebaut
         for (let i = 0; i < Aufgabe10.kugeldaten.length; i++) {
             let kugeltyp = document.createElement("input");
             kugeltyp.type = "checkbox";
-            kugeltyp.id = Aufgabe10.kugeldaten[i].element;
+            kugeltyp.id = Aufgabe10.kugeldaten[i].element; //ID für späteren Nutzen im Warenkorb
             kugeltyp.addEventListener("change", function () {
-                ChkKugelnAuslesen(kugeltyp, "1");
+                CheckBoxKugelnAuslesen(kugeltyp, "1");
             });
             document.getElementById("kugeln").appendChild(kugeltyp);
-            //Labels hinzufügen
             let kugellabel = document.createElement("label");
             kugellabel.innerText = Aufgabe10.kugeldaten[i].name;
             document.getElementById("kugeln").appendChild(kugellabel);
-            //Anzahl Selektor
             let kugelanz = document.createElement("input");
             kugelanz.type = "number";
             kugelanz.step = "1";
@@ -80,25 +77,23 @@ var Aufgabe10;
             kugelanz.value = "1";
             kugelanz.style.marginRight = "1.5em";
             kugelanz.addEventListener("change", function () {
-                kugeltyp.checked = true; //Chekbox Anhaken wenn wert ge�ndert wird
-                ChkKugelnAuslesen(kugeltyp, kugelanz.value);
+                kugeltyp.checked = true;
+                CheckBoxKugelnAuslesen(kugeltyp, kugelanz.value);
             });
             document.getElementById("kugeln").appendChild(kugelanz);
         }
-        //Kerzen Selektor       
+        //Kerzentypen werden auch anders aufgebaut
         for (let i = 0; i < Aufgabe10.kerzendaten.length; i++) {
             let kerzetyp = document.createElement("input");
             kerzetyp.type = "checkbox";
             kerzetyp.id = Aufgabe10.kerzendaten[i].element;
             kerzetyp.addEventListener("change", function () {
-                ChkKerzenAuslesen(kerzetyp, "1");
+                CheckBoxKerzenAuslesen(kerzetyp, "1");
             });
             document.getElementById("kerzen").appendChild(kerzetyp);
-            //Label Hinzufügen
             let kerzelabel = document.createElement("label");
             kerzelabel.innerText = Aufgabe10.kerzendaten[i].name;
             document.getElementById("kerzen").appendChild(kerzelabel);
-            //Anzahl
             let kerzenanz = document.createElement("input");
             kerzenanz.type = "number";
             kerzenanz.step = "1";
@@ -106,116 +101,95 @@ var Aufgabe10;
             kerzenanz.value = "1";
             kerzenanz.style.marginRight = "1.5em";
             kerzenanz.addEventListener("change", function () {
-                kerzetyp.checked = true; //Chekbox Anhaken wenn wert ge�ndert wird
-                ChkKerzenAuslesen(kerzetyp, kerzenanz.value);
+                kerzetyp.checked = true;
+                CheckBoxKerzenAuslesen(kerzetyp, kerzenanz.value);
             });
             document.getElementById("kerzen").appendChild(kerzenanz);
         }
-        //Lieferoption Selektor       
-        lieferopttyp.addEventListener("change", AuswahlAuslesen);
-        document.getElementById("lieferoption").appendChild(lieferopttyp);
+        lieferung.addEventListener("change", AuswahlAuslesen);
+        document.getElementById("lieferoption").appendChild(lieferung);
         for (let i = 0; i < Aufgabe10.lieferoptionen.length; i++) {
             let option = document.createElement("option");
             option.innerText = Aufgabe10.lieferoptionen[i].name;
-            lieferopttyp.id = Aufgabe10.lieferoptionen[i].element;
-            lieferopttyp.appendChild(option);
+            lieferung.id = Aufgabe10.lieferoptionen[i].element;
+            lieferung.appendChild(option);
         }
-        //Lieferadresse Eingeben
-        persName.type = "text";
-        persName.placeholder = "Name";
-        persName.required = true;
-        persName.style.marginRight = "1em";
-        document.getElementById("persdaten").appendChild(persName);
-        persVorname.type = "text";
-        persVorname.placeholder = "Vorname";
-        persVorname.required = true;
-        persVorname.style.marginRight = "1em";
-        document.getElementById("persdaten").appendChild(persVorname);
-        persMail.type = "email"; //Um nutzung von @ vorauszusetzen
-        persMail.placeholder = "Email, bitte @ nicht vergessen";
-        persMail.required = true;
-        persMail.style.marginRight = "1em";
-        document.getElementById("persdaten").appendChild(persMail);
-        persAdresse.type = "text";
-        persAdresse.placeholder = "Adresse";
-        persAdresse.required = true;
-        persAdresse.style.marginRight = "1em";
-        document.getElementById("persdaten").appendChild(persAdresse);
-        persPlz.type = "text";
-        persPlz.placeholder = "PLZ";
-        persPlz.required = true;
-        document.getElementById("persdaten").appendChild(persPlz);
-        //Button generieren
+        //Lieferadresse
+        Name.type = "text";
+        Name.placeholder = "Name";
+        Name.required = true;
+        Name.style.marginRight = "1em";
+        document.getElementById("persdaten").appendChild(Name);
+        Vorname.type = "text";
+        Vorname.placeholder = "Vorname";
+        Vorname.required = true;
+        Vorname.style.marginRight = "1em";
+        document.getElementById("persdaten").appendChild(Vorname);
+        Mail.type = "email";
+        Mail.placeholder = "Email, bitte @ nicht vergessen";
+        Mail.required = true;
+        Mail.style.marginRight = "1em";
+        document.getElementById("persdaten").appendChild(Mail);
+        Adresse.type = "text";
+        Adresse.placeholder = "Adresse";
+        Adresse.required = true;
+        Adresse.style.marginRight = "1em";
+        document.getElementById("persdaten").appendChild(Adresse);
+        Plz.type = "text";
+        Plz.placeholder = "PLZ";
+        Plz.required = true;
+        document.getElementById("persdaten").appendChild(Plz);
         let button = document.createElement("button");
-        button.innerText = "Bestellung Prüfen";
+        button.innerText = "Bestellung Überprüfen";
         button.addEventListener("click", PrufeDaten);
         button.style.marginTop = "10px";
-        document.getElementById("prufenbutton").appendChild(button);
-    }
-    function ChkKugelnAuslesen(chkElement, anzahl) {
+        document.getElementById("button").appendChild(button);
+    } //ENDE DER KONFIGURATOR FUNKTION
+    function CheckBoxKugelnAuslesen(CheckElement, anzahl) {
         for (let i = 0; i < Aufgabe10.kugeldaten.length; i++) {
-            if (Aufgabe10.kugeldaten[i].element == chkElement.id) {
-                Warenkorb(chkElement.id, Aufgabe10.kugeldaten[i].name, Aufgabe10.kugeldaten[i].preis, parseInt(anzahl), chkElement.checked);
+            if (Aufgabe10.kugeldaten[i].element == CheckElement.id) {
+                Warenkorb(CheckElement.id, Aufgabe10.kugeldaten[i].name, Aufgabe10.kugeldaten[i].preis, parseInt(anzahl), CheckElement.checked);
             }
         }
     }
-    function ChkKerzenAuslesen(chkElement, anzahl) {
+    function CheckBoxKerzenAuslesen(CheckElement, anzahl) {
         for (let i = 0; i < Aufgabe10.kerzendaten.length; i++) {
-            if (Aufgabe10.kerzendaten[i].element == chkElement.id) {
-                Warenkorb(chkElement.id, Aufgabe10.kerzendaten[i].name, Aufgabe10.kerzendaten[i].preis, parseInt(anzahl), chkElement.checked);
+            if (Aufgabe10.kerzendaten[i].element == CheckElement.id) {
+                Warenkorb(CheckElement.id, Aufgabe10.kerzendaten[i].name, Aufgabe10.kerzendaten[i].preis, parseInt(anzahl), CheckElement.checked);
             }
         }
     }
     function AuswahlAuslesen() {
-        var baumname = baumtyp.value; //baumtyp.value == ausgewählter Wert im DropDown
+        var baumname = baumarten.value;
         if (baumname != "") {
-            ZuWarenkorb(Aufgabe10.baumdaten, true, baumname); //true --> element ist ausgewählt
+            ZuWarenkorb(Aufgabe10.baumdaten, true, baumname);
         }
         else {
-            ZuWarenkorb(Aufgabe10.baumdaten, false, baumname); //false --> Element wurde abgewählt
+            ZuWarenkorb(Aufgabe10.baumdaten, false, baumname);
         }
-        var halterungname = halterungtyp.value;
+        var halterungname = halterung.value;
         if (halterungname != "") {
             ZuWarenkorb(Aufgabe10.halterungdaten, true, halterungname);
         }
         else {
             ZuWarenkorb(Aufgabe10.halterungdaten, false, halterungname);
         }
-        var lieferant = lieferopttyp.value;
+        var lieferant = lieferung.value;
         if (lieferant != "") {
             ZuWarenkorb(Aufgabe10.lieferoptionen, true, lieferant);
         }
     }
-    //Wird von DropDown genutzt
-    function ZuWarenkorb(daten, ischeckt, elementname) {
+    function ZuWarenkorb(daten, gecheckt, elementname) {
         for (let i = 0; i < daten.length; i++) {
             if (daten[i].name == elementname) {
-                Warenkorb(daten[i].element, elementname, daten[i].preis, 1, ischeckt); //1 --> da nur ein Element ausgewählt werden kann
+                Warenkorb(daten[i].element, elementname, daten[i].preis, 1, gecheckt);
             }
         }
     }
     function Warenkorb(elementId, value, preis, anzahl, selected) {
+        var gesamtpreis = 0;
         var preisElement;
         preisElement = anzahl * preis;
-        //Wird erst bei zweitem Durchgang ausgef�hrt, zu Beginn keine Elemente in Korb vorhanden
-        for (let i = 0; i < korb.getElementsByTagName("p").length; i++) {
-            if (korb.getElementsByTagName("p")[i].id == elementId) {
-                var innerPreis = korb.getElementsByTagName("p")[i].innerText.split("=")[1]; //Preis extrahieren
-                korb.getElementsByTagName("p")[i].remove(); //Wenn vorhanden Element löschen
-                gesamtpreis = gesamtpreis - parseInt(innerPreis); //Gesamtpreis bereinigen
-            }
-            //Gesamtpreis p entfernen um später aktualisiert zurück einzufügen
-            if (korb.getElementsByTagName("p")[i].id == "gesamtpreisid") {
-                korb.getElementsByTagName("p")[i].remove();
-            }
-        }
-        if (selected) {
-            var p = document.createElement("p");
-            p.id = elementId;
-            p.innerText = value + "  = " + preisElement + "€";
-            korb.appendChild(p);
-        }
-        //Gesamtpreis wieder hinzufügen
         gesamtpreis = gesamtpreis + preisElement;
         var pGesamt = document.createElement("p");
         pGesamt.id = "gesamtpreisid";
@@ -225,10 +199,27 @@ var Aufgabe10;
         pGesamt.style.paddingTop = "10px";
         pGesamt.style.borderTop = "2px solid grey";
         korb.appendChild(pGesamt);
+        if (selected) {
+            var p = document.createElement("p");
+            p.id = elementId;
+            p.innerText = value + "  = " + preisElement + "€";
+            korb.appendChild(p);
+        }
+        //Wird erst beim zweiten Vorgang angewendet
+        for (let i = 0; i < korb.getElementsByTagName("p").length; i++) {
+            if (korb.getElementsByTagName("p")[i].id == elementId) {
+                var innerPreis = korb.getElementsByTagName("p")[i].innerText.split("=")[1];
+                korb.getElementsByTagName("p")[i].remove();
+                gesamtpreis = gesamtpreis - parseInt(innerPreis);
+            }
+            if (korb.getElementsByTagName("p")[i].id == "gesamtpreisid") {
+                korb.getElementsByTagName("p")[i].remove();
+            }
+        }
     }
     function PrufeDaten() {
         prufen.innerText = "";
-        if (persName.checkValidity() == false || persVorname.checkValidity() == false || persMail.checkValidity() == false || persPlz.checkValidity() == false || persAdresse.checkValidity() == false) {
+        if (Name.checkValidity() == false || Vorname.checkValidity() == false || Mail.checkValidity() == false || Plz.checkValidity() == false || Adresse.checkValidity() == false) {
             prufen.innerText = "Deine Eingabe war leider fehlerhaft! Überprüfe sie noch einmal.";
             prufen.style.color = "red";
             document.body.appendChild(prufen);

@@ -10,7 +10,7 @@ export interface Daten {
 export let baumdaten: Daten[] = [
     {element: "baum", name: "", preis: 0},
     {element: "baum", name: "Fichte", preis: 19},
-    {element: "baum", name: "Nordmanntanne", preis: 30}
+    {element: "baum", name: "Tanne", preis: 30}
 ];
    
 export let halterungdaten: Daten[] = [

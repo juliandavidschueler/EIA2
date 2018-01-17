@@ -3,7 +3,7 @@ var Aufgabe10;
     Aufgabe10.baumdaten = [
         { element: "baum", name: "", preis: 0 },
         { element: "baum", name: "Fichte", preis: 19 },
-        { element: "baum", name: "Nordmanntanne", preis: 30 }
+        { element: "baum", name: "Tanne", preis: 30 }
     ];
     Aufgabe10.halterungdaten = [
         { element: "halterung", name: "", preis: 0 },
