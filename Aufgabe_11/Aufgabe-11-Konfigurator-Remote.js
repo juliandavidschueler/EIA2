@@ -44,6 +44,7 @@ var Aufgabe11;
         document.getElementById("korbbild").appendChild(korb);
         baumarten.addEventListener("change", AuswahlAuslesen);
         document.getElementById("baumtyp").appendChild(baumarten);
+        baumarten.name = "Baumarten"; //Wird vom Server verwendet
         for (let i = 0; i < Aufgabe11.baumdaten.length; i++) {
             let option = document.createElement("option");
             option.innerText = Aufgabe11.baumdaten[i].name;
@@ -52,6 +53,7 @@ var Aufgabe11;
         }
         halterung.addEventListener("change", AuswahlAuslesen);
         document.getElementById("halterung").appendChild(halterung);
+        halterung.name = "Halterungstyp";
         for (let i = 0; i < Aufgabe11.halterungdaten.length; i++) {
             let option = document.createElement("option");
             option.innerText = Aufgabe11.halterungdaten[i].name;
@@ -62,6 +64,7 @@ var Aufgabe11;
         for (let i = 0; i < Aufgabe11.kugeldaten.length; i++) {
             let kugeltyp = document.createElement("input");
             kugeltyp.type = "checkbox";
+            kugeltyp.name = "Kugeltyp"; //Wird vom Server verwendet
             kugeltyp.id = Aufgabe11.kugeldaten[i].element; //ID für späteren Nutzen im Warenkorb
             kugeltyp.addEventListener("change", function () {
                 CheckBoxKugelnAuslesen(kugeltyp, "1");
@@ -87,6 +90,7 @@ var Aufgabe11;
             let kerzetyp = document.createElement("input");
             kerzetyp.type = "checkbox";
             kerzetyp.id = Aufgabe11.kerzendaten[i].element;
+            kerzetyp.name = "Kerzentyp";
             kerzetyp.addEventListener("change", function () {
                 CheckBoxKerzenAuslesen(kerzetyp, "1");
             });
@@ -108,6 +112,7 @@ var Aufgabe11;
         }
         lieferung.addEventListener("change", AuswahlAuslesen);
         document.getElementById("lieferoption").appendChild(lieferung);
+        lieferung.name = "Lieferoption";
         for (let i = 0; i < Aufgabe11.lieferoptionen.length; i++) {
             let option = document.createElement("option");
             option.innerText = Aufgabe11.lieferoptionen[i].name;
@@ -119,25 +124,30 @@ var Aufgabe11;
         Name.placeholder = "Name";
         Name.required = true;
         Name.style.marginRight = "1em";
+        Name.name = "Name";
         document.getElementById("persdaten").appendChild(Name);
         Vorname.type = "text";
         Vorname.placeholder = "Vorname";
         Vorname.required = true;
         Vorname.style.marginRight = "1em";
+        Vorname.name = "Vorname";
         document.getElementById("persdaten").appendChild(Vorname);
         Mail.type = "email";
         Mail.placeholder = "Email, bitte @ nicht vergessen";
         Mail.required = true;
         Mail.style.marginRight = "1em";
+        Mail.name = "Mail";
         document.getElementById("persdaten").appendChild(Mail);
         Adresse.type = "text";
         Adresse.placeholder = "Adresse";
         Adresse.required = true;
         Adresse.style.marginRight = "1em";
+        Adresse.name = "Adresse";
         document.getElementById("persdaten").appendChild(Adresse);
         Plz.type = "text";
         Plz.placeholder = "PLZ";
         Plz.required = true;
+        Plz.name = "PLZ";
         document.getElementById("persdaten").appendChild(Plz);
         let button = document.createElement("button");
         button.innerText = "Bestellung Überprüfen";

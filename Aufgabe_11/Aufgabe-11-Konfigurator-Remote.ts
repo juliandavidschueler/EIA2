@@ -50,17 +50,17 @@ namespace Aufgabe11 {
 
         baumarten.addEventListener("change", AuswahlAuslesen);
         document.getElementById("baumtyp").appendChild(baumarten);
-        
+        baumarten.name = "Baumarten"; //Wird vom Server verwendet
         for (let i: number = 0; i < baumdaten.length; i++) {
             let option: HTMLOptionElement = document.createElement("option");
             option.innerText = baumdaten[i].name;
             baumarten.id = baumdaten[i].element; //ID für späteren Nutzen im Warenkorb
             baumarten.appendChild(option);
         }
-         
+
         halterung.addEventListener("change", AuswahlAuslesen);
         document.getElementById("halterung").appendChild(halterung);
-
+        halterung.name = "Halterungstyp";
         for (let i: number = 0; i < halterungdaten.length; i++) {
             let option: HTMLOptionElement = document.createElement("option");
             option.innerText = halterungdaten[i].name;
@@ -72,6 +72,7 @@ namespace Aufgabe11 {
         for (let i: number = 0; i < kugeldaten.length; i++) {
             let kugeltyp: HTMLInputElement = document.createElement("input");
             kugeltyp.type = "checkbox";
+            kugeltyp.name = "Kugeltyp"; //Wird vom Server verwendet
             kugeltyp.id = kugeldaten[i].element; //ID für späteren Nutzen im Warenkorb
             kugeltyp.addEventListener("change", function(): void {
                  CheckBoxKugelnAuslesen(kugeltyp, "1");
@@ -100,6 +101,7 @@ namespace Aufgabe11 {
             let kerzetyp: HTMLInputElement = document.createElement("input");
             kerzetyp.type = "checkbox";
             kerzetyp.id = kerzendaten[i].element;
+            kerzetyp.name = "Kerzentyp";
             kerzetyp.addEventListener("change", function(): void { 
                 CheckBoxKerzenAuslesen(kerzetyp, "1");
             });
@@ -125,7 +127,7 @@ namespace Aufgabe11 {
         
         lieferung.addEventListener("change", AuswahlAuslesen);
         document.getElementById("lieferoption").appendChild(lieferung);
-
+        lieferung.name = "Lieferoption";
         for (let i: number = 0; i < lieferoptionen.length; i++) {
             let option: HTMLOptionElement = document.createElement("option");
             option.innerText = lieferoptionen[i].name;
@@ -138,29 +140,34 @@ namespace Aufgabe11 {
         Name.placeholder = "Name";
         Name.required = true;
         Name.style.marginRight = "1em";
+        Name.name = "Name";
         document.getElementById("persdaten").appendChild(Name);
 
         Vorname.type = "text";
         Vorname.placeholder = "Vorname";
         Vorname.required = true;
         Vorname.style.marginRight = "1em";
+        Vorname.name = "Vorname";
         document.getElementById("persdaten").appendChild(Vorname);
 
         Mail.type = "email"; 
         Mail.placeholder = "Email, bitte @ nicht vergessen";
         Mail.required = true;
         Mail.style.marginRight = "1em";
+        Mail.name = "Mail";
         document.getElementById("persdaten").appendChild(Mail);
 
         Adresse.type = "text";
         Adresse.placeholder = "Adresse";
         Adresse.required = true;
         Adresse.style.marginRight = "1em";
+        Adresse.name = "Adresse";
         document.getElementById("persdaten").appendChild(Adresse);
 
         Plz.type = "text";
         Plz.placeholder = "PLZ";
         Plz.required = true;
+        Plz.name = "PLZ";
         document.getElementById("persdaten").appendChild(Plz);
 
         
