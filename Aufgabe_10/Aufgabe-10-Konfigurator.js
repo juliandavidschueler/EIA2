@@ -220,7 +220,7 @@ var Aufgabe10;
     function PrufeDaten() {
         prufen.innerText = "";
         if (Name.checkValidity() == false || Vorname.checkValidity() == false || Mail.checkValidity() == false || Plz.checkValidity() == false || Adresse.checkValidity() == false) {
-            prufen.innerText = "Deine Eingabe war leider fehlerhaft! Überprüfe sie noch einmal.";
+            prufen.innerText = "Fehler! Bitte gib eine Adresse ein";
             prufen.style.color = "red";
             document.body.appendChild(prufen);
         }
