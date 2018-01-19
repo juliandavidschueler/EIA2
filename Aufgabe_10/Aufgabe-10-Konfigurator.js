@@ -3,7 +3,7 @@ Aufgabe: (10 Konfigurator)
 Name: (Julian Schüler)
 Matrikel: (256033)
 Datum: (05.01.2017)
-    
+   
 Hiermit versichere ich, dass ich diesen Code selbst geschrieben habe. Er wurde nicht kopiert und auch nicht diktiert.
 */
 var Aufgabe10;

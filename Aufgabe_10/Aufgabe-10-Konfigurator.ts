@@ -1,4 +1,4 @@
-/*
+ /*
 Aufgabe: (10 Konfigurator)
 Name: (Julian Schüler)
 Matrikel: (256033)
