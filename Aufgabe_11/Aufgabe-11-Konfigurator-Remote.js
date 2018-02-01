@@ -19,6 +19,9 @@ var Aufgabe11;
     let Plz = document.createElement("input"); //Erstellt Variable Plz als HTMLInputElement
     let prufen = document.createElement("div"); //Erstellt Variable prufen als HTMLInputElement
     let korb = document.createElement("div"); //Erstellt Variable korb als HTMLInputElement
+    var gesamtpreisvar = document.createElement("input");
+    gesamtpreisvar.style.display = "none";
+    var gesamtpreis = 0; //variable gesamtpreis ist nullgesetzt
     function Konfigurator() {
         let h2 = document.createElement("h2"); //Variable h2 als HTMLHeadingElement
         h2.innerText = "Warenkorb"; //In h2 soll Warenkorb stehen
@@ -26,7 +29,7 @@ var Aufgabe11;
         h2.style.right = "390px"; //CSS Anweisung
         h2.style.top = "0px"; //CSS Anweisung
         h2.style.zIndex = "99"; //CSS Anweisung
-        document.getElementById("korbbild").appendChild(h2); //Beziehe Daten von ID korbbild und hänge h2 daran
+        document.getElementById("korbbild").appendChild(h2); //Nimm ID korbbild aus html dokument und hänge h2 daran
         korb.style.display = "inline-block"; //CSS Anweisung
         korb.style.position = "absolute"; //CSS Anweisung
         korb.style.right = "10px"; //CSS Anweisung
@@ -36,54 +39,52 @@ var Aufgabe11;
         korb.style.paddingTop = "40px"; //CSS Anweisung
         korb.style.paddingLeft = "10px"; //CSS Anweisung
         korb.style.backgroundColor = "red"; //CSS Anweisung
-        document.getElementById("korbbild").appendChild(korb); //Beziehe Daten von ID korbbild und hänge korb daran
+        document.getElementById("korbbild").appendChild(korb); //Nimm ID korbbild aus html und hänge korb daran
         baumarten.addEventListener("change", AuswahlAuslesen); //Erstelle EventListener für Variable Baumarten, reagier bei Veränderung und gib Funktion AuswahlAuslesen aus
-        document.getElementById("baumtyp").appendChild(baumarten); //Beziehe Daten von ID baumtyp und hänge baumarten daran
-        baumarten.name = "Baumarten"; //Information name die vom Server verwendet wird
+        document.getElementById("baumtyp").appendChild(baumarten); //Nimm ID baumtyp und hänge baumarten daran
+        baumarten.name = "Baumarten"; //Information name die beim click des submit an url gehängt wird
         for (let i = 0; i < Aufgabe11.baumdaten.length; i++) {
             let option = document.createElement("option"); //Variable option vom typ HTMLOptionElement soll ein element namens Option erstellen
             option.innerText = Aufgabe11.baumdaten[i].name; //In dieser variable soll der Inhalt von baumdaten[i].name ausgegeben werden
-            baumarten.id = Aufgabe11.baumdaten[i].element; //ID für späteren Nutzen im Warenkorb (Brauch man das)
+            // baumarten.id = baumdaten[i].element;                           
             baumarten.appendChild(option); //variable option wird an baumarten angehängt
         }
         halterung.addEventListener("change", AuswahlAuslesen); //Erstelle EventListener für Variable Halterung, reagier bei Veränderung und gib Funktion AuswahlAuslesen aus
-        document.getElementById("halterung").appendChild(halterung); //Beziehe Daten von ID halterung und hänge halterung daran
-        halterung.name = "Halterungstyp"; //Information name die vom Server verwendet wird
+        document.getElementById("halterung").appendChild(halterung); //Nimm ID halterung und hänge halterung daran
+        halterung.name = "Halterungstyp"; //Information name die beim click des submit an url gehängt wird
         for (let i = 0; i < Aufgabe11.halterungdaten.length; i++) {
             let option = document.createElement("option"); //Variable option vom typ HTMLOptionElement soll ein element namens Option erstellen
             option.innerText = Aufgabe11.halterungdaten[i].name; //In dieser variable soll der Inhalt von halterungsdaten[i].name ausgegeben werden
-            halterung.id = Aufgabe11.halterungdaten[i].element; //ID für späteren Nutzen im Warenkorb
+            //halterung.id = halterungdaten[i].element;                         
             halterung.appendChild(option); //variable option wird an halterung angehängt
         }
         for (let i = 0; i < Aufgabe11.kugeldaten.length; i++) {
             let kugeltyp = document.createElement("input"); //Variable namens kugeltyp soll ein HTMLInputElement werden
-            kugeltyp.type = "checkbox"; //Erstelle Checkbox 
-            kugeltyp.name = "Kugeltyp"; //Wird vom Server verwendet
+            kugeltyp.type = "checkbox"; //Definiere Typ Checkbox 
             kugeltyp.id = Aufgabe11.kugeldaten[i].element; //ID für späteren Nutzen im Warenkorb
             kugeltyp.addEventListener("change", function () {
-                CheckBoxKugelnAuslesen(kugeltyp, "1"); //gib Funktion CheckBoxKugelnAuslesen aus und übergib genannte Parameter
+                CheckBoxKugelnAuslesen(kugeltyp, "1"); //ruf Funktion CheckBoxKugelnAuslesen auf und übergib genannte Parameter
             });
-            document.getElementById("kugeln").appendChild(kugeltyp); //Beziehe Daten von ID kugeln und hänge kugeltyp daran
+            document.getElementById("kugeln").appendChild(kugeltyp); //Nimm ID kugeln und hänge kugeltyp daran
             let kugellabel = document.createElement("label"); //Variable namens kugellabel soll ein HTMLLabelelement erstellen
             kugellabel.innerText = Aufgabe11.kugeldaten[i].name; //In kugellabel sollen Daten kugeldaten[i].name stehen
-            document.getElementById("kugeln").appendChild(kugellabel); //Beziehe Daten von ID kugeln und hänge kugellabel daran
-            let kugelanz = document.createElement("input"); //Variable namens kugellabel soll ein HTMLLabelelement erstellen
-            kugelanz.type = "number"; //kugelanzahl soll vom datentyp number sein
+            document.getElementById("kugeln").appendChild(kugellabel); //Nimm ID kugeln und hänge kugellabel daran
+            let kugelanz = document.createElement("input"); //Variable namens kugelanz soll ein HTMLInputelement erstellen
+            kugelanz.type = "number"; //kugelanzahl soll typ number sein
             kugelanz.step = "1"; //kugelanzahl soll immer in einer schritten hochzählen
             kugelanz.min = "0"; //Mindestwert ist 0 
             kugelanz.value = "1"; //In meiner Value steht standartisiert immer 1
             kugelanz.style.marginRight = "1.5em"; //CSS Anweisung für einen Außenabstand von 1.5em
             kugelanz.addEventListener("change", function () {
-                kugeltyp.checked = true; //Wenn di Checkbox gecklickt ist, soll der Wer ausgegeben werden   
-                CheckBoxKugelnAuslesen(kugeltyp, kugelanz.value); //gib Funktion CheckBoxKugelnAuslesen aus und übergib genannte Parameter
+                kugeltyp.checked = true; //Checkbox wird automatisch angehakt   
+                CheckBoxKugelnAuslesen(kugeltyp, kugelanz.value); //ruf Funktion CheckBoxKugelnAuslesen auf und übergib genannte Parameter
             });
-            document.getElementById("kugeln").appendChild(kugelanz); //Beziehe Daten von ID kugeln und hänge kugelanz daran
+            document.getElementById("kugeln").appendChild(kugelanz); //Nimm ID kugeln und hänge kugelanz daran
         }
         for (let i = 0; i < Aufgabe11.kerzendaten.length; i++) {
             let kerzetyp = document.createElement("input"); //Variable namens kerzetyp soll ein HTMLInputElement werden
-            kerzetyp.type = "checkbox"; //Erstelle Checkbox
+            kerzetyp.type = "checkbox"; //Typ Checkbox
             kerzetyp.id = Aufgabe11.kerzendaten[i].element; //ID für späteren Nutzen im Warenkorb
-            kerzetyp.name = "Kerzentyp"; //sorgt dafür, dass der kerzentyp an den server weitergegeben wird
             kerzetyp.addEventListener("change", function () {
                 CheckBoxKerzenAuslesen(kerzetyp, "1"); //gib Funktion CheckBoxKerzenAuslesen aus und übergib genannte Parameter
             });
@@ -103,9 +104,9 @@ var Aufgabe11;
             });
             document.getElementById("kerzen").appendChild(kerzenanz); //Beziehe Daten von ID kerzen und hänge kerzenanz daran
         }
-        lieferung.addEventListener("change", AuswahlAuslesen); //Erstelle Eventlistener für variable Lieferung und gib bei Veränderung die Funktion AuswahlAuslesen aus
-        document.getElementById("lieferoption").appendChild(lieferung); //Beziehe Daten von ID lieferoption und hänge lieferung daran
-        lieferung.name = "Lieferoption"; //sorgt dafür, dass der kerzentyp an den server weitergegeben wird
+        lieferung.addEventListener("change", AuswahlAuslesen); //Erstelle Eventlistener für variable Lieferung und ruf bei Veränderung die Funktion AuswahlAuslesen auf
+        document.getElementById("lieferoption").appendChild(lieferung); //Nimm ID lieferoption und hänge lieferung daran
+        lieferung.name = "Lieferoption"; //sorgt dafür, dass der liefertyp an den server weitergegeben wird
         for (let i = 0; i < Aufgabe11.lieferoptionen.length; i++) {
             let option = document.createElement("option"); //Erstelle Variable namens option als HTMLOptionElement
             option.innerText = Aufgabe11.lieferoptionen[i].name; //In option sollen Daten lieferoptionen[i].name stehen
@@ -113,12 +114,12 @@ var Aufgabe11;
             lieferung.appendChild(option); //Hänge option an lieferung
         }
         //Lieferadresse
-        Name.type = "text"; //Name ist Textform
-        Name.placeholder = "Name"; //Platzhalter für value ist Name
-        Name.required = true; //wahre Wiedergabe???
+        Name.type = "text"; //typ ist Textform
+        Name.placeholder = "Name"; //Platzhalter ist Name
+        Name.required = true; //Pflichteingabe
         Name.style.marginRight = "1em"; //CSS Anweisung
         Name.name = "Name"; //Name der vom Server ausgegeben wird
-        document.getElementById("persdaten").appendChild(Name); //Beziehe Daten von ID persdaten und hänge Name daran
+        document.getElementById("persdaten").appendChild(Name); //Nimm ID persdaten und hänge Name daran
         Vorname.type = "text";
         Vorname.placeholder = "Vorname";
         Vorname.required = true;
@@ -144,14 +145,15 @@ var Aufgabe11;
         document.getElementById("persdaten").appendChild(Plz); //Bis hier hin bei allem das gleiche Prinzip
         let button = document.createElement("button"); //variable button als HTMLButtonElement
         button.innerText = "Bestellung Überprüfen"; //Im Button soll der gegebene text stehen
-        button.type = "submit"; //Der Button Typ ist ein Submit Button
-        button.addEventListener("click", PrufeDaten); //Erstellt EventListener, der auf click reagiert und dann prüfe Daten ausgibt
+        button.type = "submit"; //Der Button Typ ist ein Submit Button //Löst Aktion aus
+        button.addEventListener("click", PrufeDaten); //Erstellt EventListener, der auf click reagiert und dann prüfe Daten aufruft
         button.style.marginTop = "10px"; //CSS Anweisung
-        document.getElementById("button").appendChild(button); //Beziehe Daten aus ID button und hänge button daran
+        document.getElementById("button").appendChild(button); //Nimm ID button und hänge button daran
     } //ENDE DER KONFIGURATOR FUNKTION
     function CheckBoxKugelnAuslesen(CheckElement, anzahl) {
         for (let i = 0; i < Aufgabe11.kugeldaten.length; i++) {
             if (Aufgabe11.kugeldaten[i].element == CheckElement.id) {
+                CheckElement.name = "Kugeltyp " + Aufgabe11.kugeldaten[i].name + " anzahl" + anzahl; //wird vom server ausgegeben   
                 Warenkorb(CheckElement.id, Aufgabe11.kugeldaten[i].name, Aufgabe11.kugeldaten[i].preis, parseInt(anzahl), CheckElement.checked); //Wenn die Daten übereinstimmen werden Parameter im Warenkorb ausgegeben
             }
         }
@@ -159,28 +161,29 @@ var Aufgabe11;
     function CheckBoxKerzenAuslesen(CheckElement, anzahl) {
         for (let i = 0; i < Aufgabe11.kerzendaten.length; i++) {
             if (Aufgabe11.kerzendaten[i].element == CheckElement.id) {
+                CheckElement.name = "Kerzentyp " + Aufgabe11.kerzendaten[i].element + " anzahl" + anzahl;
                 Warenkorb(CheckElement.id, Aufgabe11.kerzendaten[i].name, Aufgabe11.kerzendaten[i].preis, parseInt(anzahl), CheckElement.checked); //Gleiches Prinzip wie oben
             }
         }
     }
     function AuswahlAuslesen() {
-        var baumname = baumarten.value; //variable vom typ string ist gleich baumarten.value
-        if (baumname != "") {
-            ZuWarenkorb(Aufgabe11.baumdaten, true, baumname); //wenn baumname nicht leer ist soll baumname und baumdaten an warenkorb ausgegeben werden
+        //var baumname: string = baumarten.value;            
+        if (baumarten.value != "") {
+            ZuWarenkorb(Aufgabe11.baumdaten, true, baumarten.value); //wenn baumname nicht leer ist soll baumname und baumdaten an warenkorb ausgegeben werden
         }
         else {
-            ZuWarenkorb(Aufgabe11.baumdaten, false, baumname);
+            ZuWarenkorb(Aufgabe11.baumdaten, false, baumarten.value);
         }
-        var halterungname = halterung.value; //variable vom typ string ist gleich halterung.value
-        if (halterungname != "") {
-            ZuWarenkorb(Aufgabe11.halterungdaten, true, halterungname);
+        //var halterungname: string = halterung.value;                //variable vom typ string ist gleich halterung.value
+        if (halterung.value != "") {
+            ZuWarenkorb(Aufgabe11.halterungdaten, true, halterung.value);
         }
         else {
-            ZuWarenkorb(Aufgabe11.halterungdaten, false, halterungname);
+            ZuWarenkorb(Aufgabe11.halterungdaten, false, halterung.value);
         }
-        var lieferant = lieferung.value; //variable lieferant ist gleich lieferung.value
-        if (lieferant != "") {
-            ZuWarenkorb(Aufgabe11.lieferoptionen, true, lieferant); //warum gibt es kein else???
+        //var lieferant: string = lieferung.value;                    //variable lieferant ist gleich lieferung.value
+        if (lieferung.value != "") {
+            ZuWarenkorb(Aufgabe11.lieferoptionen, true, lieferung.value);
         }
     }
     function ZuWarenkorb(daten, gecheckt, elementname) {
@@ -191,9 +194,25 @@ var Aufgabe11;
         }
     }
     function Warenkorb(elementId, value, preis, anzahl, selected) {
-        var gesamtpreis = 0; //variable gesamtpreis ist nullgesetzt
-        var preisElement; //variable preiselement ist eine nummer
+        var preisElement; //variable preiselement ist von typ nummer
         preisElement = anzahl * preis; //berechnet sich aus der anzahl und dem preis
+        //Wird erst beim zweiten Vorgang angewendet
+        for (let i = 0; i < korb.getElementsByTagName("p").length; i++) {
+            if (korb.getElementsByTagName("p")[i].id == elementId) {
+                var innerPreis = korb.getElementsByTagName("p")[i].innerText.split("=")[1]; //variable innerpreis zieht von p den text an stelle 1 //Extrahiere Preis
+                korb.getElementsByTagName("p")[i].remove(); //entferne korb element p
+                gesamtpreis = gesamtpreis - parseInt(innerPreis); //gesamtpreis wird neu berechnet
+            }
+            if (korb.getElementsByTagName("p")[i].id == "gesamtpreisid") {
+                korb.getElementsByTagName("p")[i].remove(); //p element wird von korb entfernt
+            }
+        }
+        if (selected) {
+            var p = document.createElement("p"); //variable p erstellt ein html paragraph element
+            p.id = elementId; //weise p die elementid zu
+            p.innerText = value + "  = " + preisElement + "€"; //in p soll auswahl + preis stehen
+            korb.appendChild(p); //hänge p an korb an
+        }
         gesamtpreis = gesamtpreis + preisElement; //gesamtpreis berechnet sich aus den genannten variablen
         var pGesamt = document.createElement("p"); //variable pgesamt ist ein html paragraph 
         pGesamt.id = "gesamtpreisid"; //erstelle id für pgesamt namens gesamtpreisid 
@@ -203,23 +222,8 @@ var Aufgabe11;
         pGesamt.style.paddingTop = "10px"; //CSS
         pGesamt.style.borderTop = "2px solid grey"; //CSS
         korb.appendChild(pGesamt); //pgesamt an korb anhängen
-        if (selected) {
-            var p = document.createElement("p"); //variabel p ist ein html paragraph
-            p.id = elementId; //erstelle für p eine elementid
-            p.innerText = value + "  = " + preisElement + "€"; //in p soll auswahl + preis stehen
-            korb.appendChild(p); //hänge p an korb an
-        }
-        //Wird erst beim zweiten Vorgang angewendet
-        for (let i = 0; i < korb.getElementsByTagName("p").length; i++) {
-            if (korb.getElementsByTagName("p")[i].id == elementId) {
-                var innerPreis = korb.getElementsByTagName("p")[i].innerText.split("=")[1]; //variable innerpreis zieht von p den text an stelle 1
-                korb.getElementsByTagName("p")[i].remove(); //entferne korb element p
-                gesamtpreis = gesamtpreis - parseInt(innerPreis); //gesamtpreis wird neu berechnet
-            }
-            if (korb.getElementsByTagName("p")[i].id == "gesamtpreisid") {
-                korb.getElementsByTagName("p")[i].remove(); //p element wird von korb entfernt
-            }
-        }
+        gesamtpreisvar.name = "Gesamtpreis" + gesamtpreis; //Server soll gesamtpreis auch angeben
+        korb.appendChild(pGesamt); //pgesamt an korb hängen
     }
     function PrufeDaten() {
         prufen.innerText = ""; //prufen ist erstmal leer
