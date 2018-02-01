@@ -19,8 +19,6 @@ var Aufgabe11;
     let Plz = document.createElement("input"); //Erstellt Variable Plz als HTMLInputElement
     let prufen = document.createElement("div"); //Erstellt Variable prufen als HTMLInputElement
     let korb = document.createElement("div"); //Erstellt Variable korb als HTMLInputElement
-    var gesamtpreisvar = document.createElement("input");
-    gesamtpreisvar.style.display = "none";
     var gesamtpreis = 0; //variable gesamtpreis ist nullgesetzt
     function Konfigurator() {
         let h2 = document.createElement("h2"); //Variable h2 als HTMLHeadingElement
@@ -222,8 +220,6 @@ var Aufgabe11;
         pGesamt.style.paddingTop = "10px"; //CSS
         pGesamt.style.borderTop = "2px solid grey"; //CSS
         korb.appendChild(pGesamt); //pgesamt an korb anhängen
-        gesamtpreisvar.name = "Gesamtpreis" + gesamtpreis; //Server soll gesamtpreis auch angeben
-        korb.appendChild(pGesamt); //pgesamt an korb hängen
     }
     function PrufeDaten() {
         prufen.innerText = ""; //prufen ist erstmal leer

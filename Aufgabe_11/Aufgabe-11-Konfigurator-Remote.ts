@@ -20,9 +20,6 @@ namespace Aufgabe11 {
     let Plz: HTMLInputElement = document.createElement("input");           //Erstellt Variable Plz als HTMLInputElement
     let prufen: HTMLDivElement = document.createElement("div");            //Erstellt Variable prufen als HTMLInputElement
     let korb: HTMLDivElement = document.createElement("div");              //Erstellt Variable korb als HTMLInputElement
-    var gesamtpreisvar: HTMLInputElement = document.createElement("input");
-    
-    gesamtpreisvar.style.display = "none";
     
      var gesamtpreis: number = 0;                                                    //variable gesamtpreis ist nullgesetzt
     
@@ -271,8 +268,6 @@ namespace Aufgabe11 {
         pGesamt.style.borderTop = "2px solid grey";                                     //CSS
         korb.appendChild(pGesamt);                                                      //pgesamt an korb anhängen
 
-        gesamtpreisvar.name = "Gesamtpreis" + gesamtpreis;                              //Server soll gesamtpreis auch angeben
-        korb.appendChild(pGesamt);                                                      //pgesamt an korb hängen
         
     }
 
