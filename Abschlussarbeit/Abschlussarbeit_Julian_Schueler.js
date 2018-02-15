@@ -5,15 +5,18 @@ var Abschlussaufgabe;
     var snakeKopf = [2, 2];
     var snakeKopfAlt = [];
     var snakeSchwanz = [];
-    var snakeRichtung;
+    var snakeRichtung = 1;
+    var time = 200;
+    var food = [10, 10];
+    var punkte = 0;
     let x = 0;
     function Spiel() {
         let canvas = document.getElementsByTagName("canvas")[0];
         Abschlussaufgabe.crc2 = canvas.getContext("2d");
         Abschlussaufgabe.crc2.fillStyle = "black";
         Abschlussaufgabe.crc2.fillRect(0, 0, 1000, 500);
-        snakeKopfAlt[0] = [snakeKopf[0], snakeKopf[1]];
-        snakeKopfAlt[1] = [snakeKopf[0], snakeKopf[1]];
+        snakeKopfAlt[0] = [snakeKopf[0] - 1, snakeKopf[1]];
+        snakeKopfAlt[1] = [snakeKopf[0] - 2, snakeKopf[1]];
         snakeSchwanz[0] = [snakeKopfAlt[0][0], snakeKopfAlt[0][1]];
         snakeSchwanz[1] = [snakeKopfAlt[1][0], snakeKopfAlt[1][1]];
         animate();
@@ -32,23 +35,91 @@ var Abschlussaufgabe;
         else if (event.key == "a") {
             snakeRichtung = 3;
         }
+        else if (event.key == "e") {
+            if (snakeKopf[0] == food[0] && snakeKopf[1] == food[1]) {
+                let neuerPunkt = [];
+                for (let i = 0; i < snakeSchwanz.length; i++) {
+                    neuerPunkt = [snakeSchwanz[i][0], snakeSchwanz[i][1]];
+                }
+                snakeKopfAlt.push(neuerPunkt);
+                snakeSchwanz.push(neuerPunkt);
+            }
+        }
+    }
+    function generateFood() {
+        food = [Math.round(Math.random() * 49), Math.round(Math.random() * 24)];
+        console.log(food);
+    }
+    function eat() {
+        if (snakeKopf[0] == food[0] && snakeKopf[1] == food[1]) {
+            let neuerPunkt = [];
+            for (let i = 0; i < snakeSchwanz.length; i++) {
+                neuerPunkt = [snakeSchwanz[i][0], snakeSchwanz[i][1]];
+            }
+            snakeKopfAlt.push(neuerPunkt);
+            snakeSchwanz.push(neuerPunkt);
+            generateFood();
+            time--;
+            punkte++;
+        }
+    }
+    function collision() {
+        for (let i = 0; i < snakeSchwanz.length; i++) {
+            if (snakeKopf[0] == snakeSchwanz[i][0] && snakeKopf[1] == snakeSchwanz[i][1]) {
+                console.log(22);
+                alert("Verloren");
+                location.reload();
+            }
+        }
+    }
+    function drawScore() {
+        let score = document.getElementById("score");
+        score.innerHTML = "Du hast " + punkte + " Punkte bisher gesammelt!";
+        score.style.margin = "2em";
+    }
+    function drawLevel() {
+        let level = document.getElementById("score");
+        level.innerHTML += "<br>" && "<p>";
+        if (punkte <= 10) {
+            level.innerHTML += "Du bist ein Anfänger";
+        }
+        else if (punkte <= 20) {
+            level.innerHTML += "Du bist ein Fortgeschrittener";
+        }
+        else if (punkte <= 30) {
+            level.innerHTML += "Du bist ein Profi";
+        }
     }
     function move() {
         if (snakeRichtung == 0) {
             snakeKopf[1]--;
+            if (snakeKopf[1] < 0) {
+                snakeKopf[1] = 24;
+            }
         }
         if (snakeRichtung == 1) {
             snakeKopf[1]++;
+            if (snakeKopf[1] > 24) {
+                snakeKopf[1] = 0;
+            }
         }
         if (snakeRichtung == 2) {
             snakeKopf[0]++;
+            if (snakeKopf[0] > 49) {
+                snakeKopf[0] = 0;
+            }
         }
         if (snakeRichtung == 3) {
             snakeKopf[0]--;
+            if (snakeKopf[0] < 0) {
+                snakeKopf[0] = 50;
+            }
         }
     }
     function speichern() {
-        snakeKopfAlt[1] = snakeKopfAlt[0];
+        for (let i = snakeSchwanz.length - 1; i > 0; i--) {
+            snakeKopfAlt[i] = snakeKopfAlt[i - 1];
+        }
         snakeKopfAlt[0] = [snakeKopf[0], snakeKopf[1]];
     }
     function folgen() {
@@ -57,13 +128,19 @@ var Abschlussaufgabe;
         }
     }
     function drawFeld() {
-        for (let i = 0; i < 25; i++) {
+        for (let x = 0; x < 25; x++) {
             for (let y = 0; y < 50; y++) {
-                if (y == snakeKopf[0] && i == snakeKopf[1]) {
-                    //                    crc2.fillStyle = "white";
-                    //                    crc2.fillRect(0 + 20 * snakeKopf[0], 0 + 20 * snakeKopf[1], 20, 20);
-                    //                    crc2.fillStyle = "red";
-                    //                    crc2.fillRect(0 + 20 * snakeKopf[0], 0 + 20 * snakeKopf[1], 18, 18);
+                if (y != snakeKopf[0] || x != snakeKopf[1]) {
+                    Abschlussaufgabe.crc2.fillStyle = "white";
+                    Abschlussaufgabe.crc2.fillRect(0 + 20 * y, 0 + 20 * x, 20, 20);
+                    Abschlussaufgabe.crc2.fillStyle = "black";
+                    Abschlussaufgabe.crc2.fillRect(0 + 20 * y, 0 + 20 * x, 18, 18);
+                }
+                if (y == snakeKopf[0] || x == snakeKopf[1]) {
+                    Abschlussaufgabe.crc2.fillStyle = "white";
+                    Abschlussaufgabe.crc2.fillRect(0 + 20 * snakeKopf[0], 0 + 20 * snakeKopf[1], 20, 20);
+                    Abschlussaufgabe.crc2.fillStyle = "red";
+                    Abschlussaufgabe.crc2.fillRect(0 + 20 * snakeKopf[0], 0 + 20 * snakeKopf[1], 18, 18);
                     for (let i = 0; i < snakeSchwanz.length; i++) {
                         Abschlussaufgabe.crc2.fillStyle = "white";
                         Abschlussaufgabe.crc2.fillRect(0 + 20 * snakeSchwanz[i][0], 0 + 20 * snakeSchwanz[i][1], 20, 20);
@@ -71,21 +148,26 @@ var Abschlussaufgabe;
                         Abschlussaufgabe.crc2.fillRect(0 + 20 * snakeSchwanz[i][0], 0 + 20 * snakeSchwanz[i][1], 18, 18);
                     }
                 }
-                else {
+                if (y == food[0] || x == food[1]) {
                     Abschlussaufgabe.crc2.fillStyle = "white";
-                    Abschlussaufgabe.crc2.fillRect(0 + 20 * y, 0 + 20 * i, 20, 20);
-                    Abschlussaufgabe.crc2.fillStyle = "black";
-                    Abschlussaufgabe.crc2.fillRect(0 + 20 * y, 0 + 20 * i, 18, 18);
+                    Abschlussaufgabe.crc2.fillRect(0 + 20 * food[0], 0 + 20 * food[1], 20, 20);
+                    Abschlussaufgabe.crc2.fillStyle = "hsl(" + Math.random() * 360 + ", 100%, 50%)";
+                    Abschlussaufgabe.crc2.fillRect(0 + 20 * food[0], 0 + 20 * food[1], 18, 18);
                 }
             }
         }
     }
     function animate() {
+        Abschlussaufgabe.crc2.clearRect(0, 0, 1000, 500);
         speichern();
         drawFeld();
+        drawScore();
+        drawLevel();
         move();
+        collision();
         folgen();
-        window.setTimeout(animate, 200);
+        eat();
+        window.setTimeout(animate, time);
     }
 })(Abschlussaufgabe || (Abschlussaufgabe = {}));
 //# sourceMappingURL=Abschlussarbeit_Julian_Schueler.js.map
