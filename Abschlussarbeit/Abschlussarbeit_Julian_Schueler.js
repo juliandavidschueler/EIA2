@@ -2,80 +2,84 @@ var Abschlussaufgabe;
 (function (Abschlussaufgabe) {
     window.addEventListener("load", Spiel);
     var feld = [];
-    var snakeKopf = [2, 2];
+    var snakeKopf;
     var snakeKopfAlt = [];
     var snakeSchwanz = [];
     var snakeRichtung = 1;
-    var time = 200;
     var food = [10, 10];
     var punkte = 0;
+    var time = 200;
     let x = 0;
     function Spiel() {
         let canvas = document.getElementsByTagName("canvas")[0];
         Abschlussaufgabe.crc2 = canvas.getContext("2d");
         Abschlussaufgabe.crc2.fillStyle = "black";
         Abschlussaufgabe.crc2.fillRect(0, 0, 1000, 500);
-        snakeKopfAlt[0] = [snakeKopf[0] - 1, snakeKopf[1]];
-        snakeKopfAlt[1] = [snakeKopf[0] - 2, snakeKopf[1]];
+        snakeKopf = new Abschlussaufgabe.SnakeKopf(2, 2);
+        snakeKopfAlt[0] = [snakeKopf.snakeKopf[0] - 1, snakeKopf.snakeKopf[1]];
+        snakeKopfAlt[1] = [snakeKopf.snakeKopf[0] - 2, snakeKopf.snakeKopf[1]];
         snakeSchwanz[0] = [snakeKopfAlt[0][0], snakeKopfAlt[0][1]];
         snakeSchwanz[1] = [snakeKopfAlt[1][0], snakeKopfAlt[1][1]];
         animate();
     }
+    //Steuerung
     document.addEventListener('keydown', keyboardInput);
     function keyboardInput(event) {
         if (event.key == "w") {
-            snakeRichtung = 0;
+            snakeKopf.n = 0;
         }
         else if (event.key == "d") {
-            snakeRichtung = 2;
+            snakeKopf.n = 2;
         }
         else if (event.key == "s") {
-            snakeRichtung = 1;
+            snakeKopf.n = 1;
         }
         else if (event.key == "a") {
-            snakeRichtung = 3;
+            snakeKopf.n = 3;
         }
-        else if (event.key == "e") {
-            if (snakeKopf[0] == food[0] && snakeKopf[1] == food[1]) {
-                let neuerPunkt = [];
-                for (let i = 0; i < snakeSchwanz.length; i++) {
-                    neuerPunkt = [snakeSchwanz[i][0], snakeSchwanz[i][1]];
+    }
+    //Snake Funktionen
+    function speichern() {
+        for (let i = snakeSchwanz.length - 1; i > 0; i--) {
+            snakeKopfAlt[i] = snakeKopfAlt[i - 1];
+        }
+        snakeKopfAlt[0] = [snakeKopf.snakeKopf[0], snakeKopf.snakeKopf[1]];
+    }
+    function drawFeld() {
+        for (let x = 0; x < 25; x++) {
+            for (let y = 0; y < 50; y++) {
+                if (y != snakeKopf.snakeKopf[0] || x != snakeKopf.snakeKopf[1]) {
+                    Abschlussaufgabe.crc2.fillStyle = "white";
+                    Abschlussaufgabe.crc2.fillRect(0 + 20 * y, 0 + 20 * x, 20, 20);
+                    Abschlussaufgabe.crc2.fillStyle = "black";
+                    Abschlussaufgabe.crc2.fillRect(0 + 20 * y, 0 + 20 * x, 18, 18);
                 }
-                snakeKopfAlt.push(neuerPunkt);
-                snakeSchwanz.push(neuerPunkt);
-            }
-        }
-    }
-    function generateFood() {
-        food = [Math.round(Math.random() * 49), Math.round(Math.random() * 24)];
-        console.log(food);
-    }
-    function eat() {
-        if (snakeKopf[0] == food[0] && snakeKopf[1] == food[1]) {
-            let neuerPunkt = [];
-            for (let i = 0; i < snakeSchwanz.length; i++) {
-                neuerPunkt = [snakeSchwanz[i][0], snakeSchwanz[i][1]];
-            }
-            snakeKopfAlt.push(neuerPunkt);
-            snakeSchwanz.push(neuerPunkt);
-            generateFood();
-            time--;
-            punkte++;
-        }
-    }
-    function collision() {
-        for (let i = 0; i < snakeSchwanz.length; i++) {
-            if (snakeKopf[0] == snakeSchwanz[i][0] && snakeKopf[1] == snakeSchwanz[i][1]) {
-                console.log(22);
-                alert("Verloren");
-                location.reload();
+                if (y == snakeKopf.snakeKopf[0] || x == snakeKopf.snakeKopf[1]) {
+                    Abschlussaufgabe.crc2.fillStyle = "white";
+                    Abschlussaufgabe.crc2.fillRect(0 + 20 * snakeKopf.snakeKopf[0], 0 + 20 * snakeKopf.snakeKopf[1], 20, 20);
+                    Abschlussaufgabe.crc2.fillStyle = "#3ADF00";
+                    Abschlussaufgabe.crc2.fillRect(0 + 20 * snakeKopf.snakeKopf[0], 0 + 20 * snakeKopf.snakeKopf[1], 18, 18);
+                    for (let i = 0; i < snakeSchwanz.length; i++) {
+                        Abschlussaufgabe.crc2.fillStyle = "white";
+                        Abschlussaufgabe.crc2.fillRect(0 + 20 * snakeSchwanz[i][0], 0 + 20 * snakeSchwanz[i][1], 20, 20);
+                        Abschlussaufgabe.crc2.fillStyle = "#3ADF00";
+                        Abschlussaufgabe.crc2.fillRect(0 + 20 * snakeSchwanz[i][0], 0 + 20 * snakeSchwanz[i][1], 18, 18);
+                    }
+                }
+                if (y == food[0] || x == food[1]) {
+                    Abschlussaufgabe.crc2.fillStyle = "white";
+                    Abschlussaufgabe.crc2.fillRect(0 + 20 * food[0], 0 + 20 * food[1], 20, 20);
+                    Abschlussaufgabe.crc2.fillStyle = "hsl(" + Math.random() * 360 + ", 100%, 50%)";
+                    Abschlussaufgabe.crc2.fillRect(0 + 20 * food[0], 0 + 20 * food[1], 18, 18);
+                }
             }
         }
     }
     function drawScore() {
         let score = document.getElementById("score");
         score.innerHTML = "Du hast " + punkte + " Punkte bisher gesammelt!";
-        score.style.margin = "2em";
+        score.style.marginLeft = "2em";
+        score.style.marginTop = "0.5em";
     }
     function drawLevel() {
         let level = document.getElementById("score");
@@ -89,72 +93,39 @@ var Abschlussaufgabe;
         else if (punkte <= 30) {
             level.innerHTML += "Du bist ein Profi";
         }
+        level.innerHTML += "<br>" && "<p>";
+        level.innerHTML += "Anfänger (bis 10 Punkte)" + "<br>" + "Fortgeschrittener (bis 20 Punkte)" + "<br>" + "Profi (ab 20 Punkten)";
     }
     function move() {
-        if (snakeRichtung == 0) {
-            snakeKopf[1]--;
-            if (snakeKopf[1] < 0) {
-                snakeKopf[1] = 24;
-            }
-        }
-        if (snakeRichtung == 1) {
-            snakeKopf[1]++;
-            if (snakeKopf[1] > 24) {
-                snakeKopf[1] = 0;
-            }
-        }
-        if (snakeRichtung == 2) {
-            snakeKopf[0]++;
-            if (snakeKopf[0] > 49) {
-                snakeKopf[0] = 0;
-            }
-        }
-        if (snakeRichtung == 3) {
-            snakeKopf[0]--;
-            if (snakeKopf[0] < 0) {
-                snakeKopf[0] = 50;
-            }
-        }
     }
-    function speichern() {
-        for (let i = snakeSchwanz.length - 1; i > 0; i--) {
-            snakeKopfAlt[i] = snakeKopfAlt[i - 1];
+    function collision() {
+        for (let i = 0; i < snakeSchwanz.length; i++) {
+            if (snakeKopf.snakeKopf[0] == snakeSchwanz[i][0] && snakeKopf.snakeKopf[1] == snakeSchwanz[i][1]) {
+                console.log(22);
+                alert("Game Over");
+                location.reload();
+            }
         }
-        snakeKopfAlt[0] = [snakeKopf[0], snakeKopf[1]];
     }
     function folgen() {
         for (let i = 0; i < snakeSchwanz.length; i++) {
             snakeSchwanz[i] = [snakeKopfAlt[i][0], snakeKopfAlt[i][1]];
         }
     }
-    function drawFeld() {
-        for (let x = 0; x < 25; x++) {
-            for (let y = 0; y < 50; y++) {
-                if (y != snakeKopf[0] || x != snakeKopf[1]) {
-                    Abschlussaufgabe.crc2.fillStyle = "white";
-                    Abschlussaufgabe.crc2.fillRect(0 + 20 * y, 0 + 20 * x, 20, 20);
-                    Abschlussaufgabe.crc2.fillStyle = "black";
-                    Abschlussaufgabe.crc2.fillRect(0 + 20 * y, 0 + 20 * x, 18, 18);
-                }
-                if (y == snakeKopf[0] || x == snakeKopf[1]) {
-                    Abschlussaufgabe.crc2.fillStyle = "white";
-                    Abschlussaufgabe.crc2.fillRect(0 + 20 * snakeKopf[0], 0 + 20 * snakeKopf[1], 20, 20);
-                    Abschlussaufgabe.crc2.fillStyle = "red";
-                    Abschlussaufgabe.crc2.fillRect(0 + 20 * snakeKopf[0], 0 + 20 * snakeKopf[1], 18, 18);
-                    for (let i = 0; i < snakeSchwanz.length; i++) {
-                        Abschlussaufgabe.crc2.fillStyle = "white";
-                        Abschlussaufgabe.crc2.fillRect(0 + 20 * snakeSchwanz[i][0], 0 + 20 * snakeSchwanz[i][1], 20, 20);
-                        Abschlussaufgabe.crc2.fillStyle = "red";
-                        Abschlussaufgabe.crc2.fillRect(0 + 20 * snakeSchwanz[i][0], 0 + 20 * snakeSchwanz[i][1], 18, 18);
-                    }
-                }
-                if (y == food[0] || x == food[1]) {
-                    Abschlussaufgabe.crc2.fillStyle = "white";
-                    Abschlussaufgabe.crc2.fillRect(0 + 20 * food[0], 0 + 20 * food[1], 20, 20);
-                    Abschlussaufgabe.crc2.fillStyle = "hsl(" + Math.random() * 360 + ", 100%, 50%)";
-                    Abschlussaufgabe.crc2.fillRect(0 + 20 * food[0], 0 + 20 * food[1], 18, 18);
-                }
+    function generateFood() {
+        food = [Math.round(Math.random() * 49), Math.round(Math.random() * 24)];
+    }
+    function eat() {
+        if (snakeKopf.snakeKopf[0] == food[0] && snakeKopf.snakeKopf[1] == food[1]) {
+            let neuerPunkt = [];
+            for (let i = 0; i < snakeSchwanz.length; i++) {
+                neuerPunkt = [snakeSchwanz[i][0], snakeSchwanz[i][1]];
             }
+            snakeKopfAlt.push(neuerPunkt);
+            snakeSchwanz.push(neuerPunkt);
+            generateFood();
+            time -= 8;
+            punkte++;
         }
     }
     function animate() {
@@ -163,7 +134,7 @@ var Abschlussaufgabe;
         drawFeld();
         drawScore();
         drawLevel();
-        move();
+        snakeKopf.update();
         collision();
         folgen();
         eat();

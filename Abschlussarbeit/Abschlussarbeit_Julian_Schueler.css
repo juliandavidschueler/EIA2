@@ -1,3 +1,4 @@
+/* Desktop */
 html {
 	position: absolute;
 	width: 100%;
@@ -6,6 +7,8 @@ html {
 h1 {
 	font-family: calibri;
 	text-align: center;
+	text-decoration: underline;
+	color: #3ADF00;
 }
 
 h2 {
@@ -32,13 +35,73 @@ p {
 fieldset {
 	float: left;
 	position: relative;
-	width: 40%;
-	margin-left: 2%;
-	margin-right: 2%;
+	width: 35em;
+	margin-left: 2em;
 	font-family: calibri;
+	height: 10em;
+}
+
+#anleitung {
+	display: inline;
+	width: 35em;
 	height: 10em;
 }
 
 div {
 	float: left;
+}
+
+/* Ipad */
+@media ( max-width : 1024px) {
+	#canvas {
+		width: 96%;
+	}
+	fieldset {
+		width: 89%;
+	}
+	#anleitung {
+		display: none;
+		width: 21em;
+		height: 20em;
+		background-color: white;
+	}
+	#button {
+		position: absolute;
+		top: 0.5em;
+		left: 3%;
+		width: 1em;
+		height: 1em;
+		background-color: black;
+	}
+	#button:hover #anleitung {
+		display: block;
+	}
+}
+
+/* Iphone6s */
+@media ( max-width : 480px) {
+	#canvas {
+		width: 96%;
+	}
+	fieldset {
+		margin-left: 0.6em;
+		width: 89%;
+	}
+	#anleitung {
+		display: none;
+		width: 21em;
+		height: 20em;
+		background-color: white;
+	}
+	#button {
+		position: absolute;
+		top: 0.5em;
+		left: 3%;
+		width: 1em;
+		height: 1em;
+		background-color: black;
+	}
+	#button:hover #anleitung {
+		display: block;
+	}
 }
