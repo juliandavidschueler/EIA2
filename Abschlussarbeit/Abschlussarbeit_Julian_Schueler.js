@@ -96,8 +96,6 @@ var Abschlussaufgabe;
         level.innerHTML += "<br>" && "<p>";
         level.innerHTML += "Anfänger (bis 10 Punkte)" + "<br>" + "Fortgeschrittener (bis 20 Punkte)" + "<br>" + "Profi (ab 20 Punkten)";
     }
-    function move() {
-    }
     function collision() {
         for (let i = 0; i < snakeSchwanz.length; i++) {
             if (snakeKopf.snakeKopf[0] == snakeSchwanz[i][0] && snakeKopf.snakeKopf[1] == snakeSchwanz[i][1]) {

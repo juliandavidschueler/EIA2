@@ -124,10 +124,6 @@ namespace Abschlussaufgabe {
         level.innerHTML += "Anfänger (bis 10 Punkte)" + "<br>" + "Fortgeschrittener (bis 20 Punkte)" + "<br>" + "Profi (ab 20 Punkten)";
     }
 
-    function move(): void {
-
-
-    }
 
     function collision(): void {
         for (let i: number = 0; i < snakeSchwanz.length; i++) {
